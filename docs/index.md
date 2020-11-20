@@ -9,7 +9,7 @@ For a study done by the Imperial College London, check out this deep dive on the
 The first step you can take, is to use [decentralized oracles](https://docs.chain.link/docs/architecture-decentralized-model) when working with data, a number of the projects that had issues moved themselves to Chainlink Price Feeds and are now secure. 
 
 This is an open sourced project. If you'd like to help fund gitcoin grants for research, please consider donating. ETH Wallet Address: 0xb14B375f47ebf34BCDB9b914d1Ce28f775440778
-# Table of Contents1. [Purpose and Summary](#purpose-and-summary)
+# Table of Contents
 1. [Purpose and Summary](#purpose-and-summary)
 2. [Historic Attacks](#Historic-Attacks)
    1. [Post Mortems](#post-mortem)
@@ -130,8 +130,14 @@ Watch out for integer overflows, etc.
 This will be a work in progress for us to get better at standards here. At the moment, I'm not sure how to address some of the liquidity issues. If you have a protocol that depends heavily on liquidity of another platform, you could very well be vulnerable. 
 
 [Akropolis Hack Tweet Thread](https://twitter.com/Dogetoshi/status/1326963117356625931)
+
 [bZx First attack](https://quantstamp.com/blog/market-dynamics-of-the-1st-bzx-hack-part-1)
+
 [bZx Both attacks](https://academy.ivanontech.com/blog/defi-deep-dive-what-is-the-bzx-protocol#:~:text=bZx%20Hack%20%231&text=At%20an%20afterparty%2C%20they%20noticed,Bitcoin%20(WBTC)%20from%20Compound.)
+
 [Reentry attacks](https://medium.com/coinmonks/protect-your-solidity-smart-contracts-from-reentrancy-attacks-9972c3af7c21)
+
 [Using `call` over `transfer` or `send`](https://consensys.net/diligence/blog/2019/09/stop-using-soliditys-transfer-now/)
+
+[Tamper Proof Oracles](https://blog.chain.link/flash-loans-and-the-importance-of-tamper-proof-oracles/)
 
