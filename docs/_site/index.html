@@ -19,7 +19,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
-    <link rel="stylesheet" href="/assets/css/style.css?v=2976159fc5d4747767cb8040e4474c1106e55202">
+    <link rel="stylesheet" href="/assets/css/style.css?v=18c5f5a37e80816d84030b67f23ef8cd3d934f7f">
   </head>
   <body>
     <section class="page-header">
@@ -34,37 +34,43 @@
     <section class="main-content">
       <h1 id="prevent-flash-loan-attacks">Prevent Flash Loan Attacks</h1>
 
-<h1 id="table-of-contents">Table of Contents</h1>
-<ol>
-  <li><a href="#purpose">Purpose</a></li>
-  <li><a href="#Historic-Attacks">Historic Attacks</a>
-    <ol>
-      <li><a href="#post-mortem">Post Mortems</a></li>
-      <li><a href="#malicous-wallets">Malicous Wallets</a></li>
-    </ol>
-  </li>
-  <li><a href="#types-of-attacks">Types of attacks</a>
-    <ol>
-      <li><a href="#oracle-manipulation">Oracle Manipulation</a></li>
-      <li><a href="#Reentrancy">Reentrancy</a></li>
-      <li><a href="#slippage">Slippage</a></li>
-    </ol>
-  </li>
-  <li><a href="#Prevention">Prevention</a>
-    <ol>
-      <li><a href="#decentralized-oracles">Decentralized Oracles</a></li>
-      <li><a href="#send,-transfer,-and-call">send, transfer, and call</a></li>
-    </ol>
-  </li>
-</ol>
-
-<h1 id="purpose">Purpose</h1>
+<h1 id="purpose-and-summary">Purpose and Summary</h1>
 
 <p>This site is dedicated to information about flash loan attacks (which are usually just <a href="https://blog.chain.link/flash-loans-and-the-importance-of-tamper-proof-oracles/">price oracle attacks</a>) and how to stop them.</p>
 
 <p>For a study done by the Imperial College London, check out this deep dive on the <a href="https://arxiv.org/pdf/2003.03810.pdf">historic bZx flash loan (oracle manipulation) attack</a> for more information.</p>
 
 <p>The first step you can take, is to use <a href="https://docs.chain.link/docs/architecture-decentralized-model">decentralized oracles</a> when working with data, a number of the projects that had issues moved themselves to Chainlink Price Feeds and are now secure.</p>
+
+<p>This is an open sourced project. If you’d like to help fund gitcoin grants for research, please consider donating. ETH Wallet Address: 0xb14B375f47ebf34BCDB9b914d1Ce28f775440778</p>
+<h1 id="table-of-contents1-purpose-and-summary">Table of Contents1. <a href="#purpose-and-summary">Purpose and Summary</a></h1>
+<ol>
+  <li><a href="#purpose-and-summary">Purpose and Summary</a></li>
+  <li><a href="#Historic-Attacks">Historic Attacks</a>
+    <ol>
+      <li><a href="#post-mortem">Post Mortems</a></li>
+      <li><a href="#malicous-wallets">Malicous Wallets</a></li>
+    </ol>
+  </li>
+  <li><a href="#what-is-a-flash-loan">What is a flash loan?</a></li>
+  <li><a href="#types-of-attacks">Types of attacks</a>
+    <ol>
+      <li><a href="#oracle-manipulation">Oracle Manipulation</a>
+        <ol>
+          <li><a href="#prevention">Prevention</a></li>
+          <li><a href="#prevention-example">Prevention Example</a></li>
+        </ol>
+      </li>
+      <li><a href="#Reentrancy">Reentrancy</a>
+        <ol>
+          <li><a href="#prevention">Prevention</a></li>
+          <li><a href="#prevention-example">Prevention Example</a></li>
+        </ol>
+      </li>
+      <li><a href="#Pump-and-Arbitrage">Pump and Arbitrage</a></li>
+    </ol>
+  </li>
+</ol>
 
 <h1 id="historic-attacks">Historic Attacks</h1>
 
@@ -77,16 +83,27 @@
       <th>Value</th>
       <th>Transaction</th>
       <th>Cause</th>
+      <th>Fix</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <td>bZx (1)</td>
+      <td><a href="https://quantstamp.com/blog/market-dynamics-of-the-1st-bzx-hack-part-1">QuantStamp</a></td>
+      <td>Feb-15-2020 01:38:57 AM +UTC</td>
+      <td>$300,000</td>
+      <td><a href="https://etherscan.io/tx/0xb5c8bd9430b6cc87a0e2fe110ece6bf527fa4f170a4bc8cd032f768fc5219838">Etherscan</a></td>
+      <td>Pump and Arbitrage</td>
+      <td>–</td>
+    </tr>
+    <tr>
       <td>bZx (2)</td>
       <td><a href="https://quantstamp.com/blog/10-quick-and-dirty-facts-about-the-bzx-hacks">QuantStamp</a></td>
       <td>Feb-15-2020 01:38:57 AM +UTC</td>
-      <td>$800,000</td>
+      <td>$645,000</td>
       <td><a href="https://etherscan.io/tx/0x762881b07feb63c436dee38edd4ff1f7a74c33091e534af56c9f7d49b5ecac15">Etherscan</a></td>
-      <td>Oracle Attack &amp; Slippage Attack</td>
+      <td>Oracle Attack</td>
+      <td><a href="https://bzx.network/blog/chainlink-oracles">Chainlink Integration</a></td>
     </tr>
     <tr>
       <td>Origin Protocol</td>
@@ -95,6 +112,7 @@
       <td>$7 M</td>
       <td><a href="https://etherscan.io/tx/0xe1c76241dda7c5fcf1988454c621142495640e708e3f8377982f55f8cf2a8401">Etherscan</a></td>
       <td>Re-entrancy Attack</td>
+      <td>XX</td>
     </tr>
     <tr>
       <td>Harvest.Finance</td>
@@ -103,6 +121,7 @@
       <td>$24 M</td>
       <td><a href="https://etherscan.io/tx/0xb460b70f11a93364fecf1f3c3ec49f053aecd2d6d9912c012170aa7a0de2d526">Etherscan</a></td>
       <td>Oracle Attack</td>
+      <td>XX</td>
     </tr>
     <tr>
       <td>Value Defi</td>
@@ -111,6 +130,7 @@
       <td>$6 M</td>
       <td><a href="https://etherscan.io/tx/0x46a03488247425f845e444b9c10b52ba3c14927c687d38287c0faddc7471150a">Etherscan</a></td>
       <td>Oracle Attack</td>
+      <td><a href="https://decrypt.co/48892/value-defi-hacked-chainlink">Chainlink Integration</a></td>
     </tr>
     <tr>
       <td>Akropolis</td>
@@ -119,6 +139,7 @@
       <td>$2 M</td>
       <td><a href="https://etherscan.io/tx/0xf15623567231c67df2b8bcc5540236fbda2c3ac11ecbec427048f11b582cb869">Etherscan</a></td>
       <td>Re-Entrancy</td>
+      <td>Re-Entry Check added</td>
     </tr>
     <tr>
       <td>Cheese Bank</td>
@@ -127,34 +148,53 @@
       <td>$6 M</td>
       <td><a href="https://etherscan.io/tx/0x46a03488247425f845e444b9c10b52ba3c14927c687d38287c0faddc7471150a">Etherscan</a></td>
       <td>Oracle Attack</td>
+      <td> </td>
     </tr>
   </tbody>
 </table>
 
 <h2 id="post-mortems">Post Mortems</h2>
-<p>TODO</p>
-<h2 id="malicious-wallets--users">Malicious wallets / Users</h2>
-<p>(TODO)</p>
 
 <ul>
+  <li><a href="https://bzx.network/blog/postmortem-ethdenver">bZx</a></li>
+  <li><a href="https://www.notion.so/Akropolis-Hack-Update-10f48dfa44a544e5a7b24f298c759c6d">Arkopolis</a></li>
+  <li>
+    <p><a href="https://medium.com/harvest-finance/harvest-flashloan-economic-attack-post-mortem-3cf900d65217">Harvest.Finance</a>
+&lt;!– ## Malicious wallets / Users
+Not really important, can find easily from the txs above</p>
+  </li>
   <li><a href="https://etherscan.io/address/0xb77f7bbac3264ae7abc8aedf2ec5f4e7ca079f83">Etherscan</a></li>
-  <li><a href="https://etherscan.io/address/0xf224ab004461540778a914ea397c589b677e27bb">Etherscan</a></li>
-  <li><a href="https://etherscan.io/address/0xa773603b139ae1c52d05b35796df3ee76d8a9a2f">Etherscan</a></li>
+  <li><a href="https://etherscan.io/address/0xf224ab004461540778a914ea397c589b677e27bb">Harvest.Fiance</a></li>
+  <li><a href="https://etherscan.io/address/0xa773603b139ae1c52d05b35796df3ee76d8a9a2f">Etherscan</a> –&gt;</li>
 </ul>
+
+<h1 id="what-is-a-flash-loan">What is a flash loan?</h1>
+
+<p>A flash loan is a loan that is only valid within one blockchain transaction. Flash loans fail, if the borrower does not repay its debt before the end of the transaction borrowing the loan. That is, because a blockchain transaction can be reverted during its execution, if the condition of a repayment is not satisfied.</p>
+
+<p>We can then see some easy attack vectors using this tool.</p>
+
+<ol>
+  <li>Take out a massive loan (token A) from a protocol supporting flash loans</li>
+  <li>Swap token A for token B on a DEX, dumping the price of A</li>
+  <li>Deposit the purchased token B as collateral on a DeFi protocol that uses the above DEX as its sole price feed, and borrow even more with this manipulated price</li>
+  <li>Use a portion of borrowed token A to fully pay back the original flash loan and keep the remaining tokens, (profiting here)</li>
+</ol>
 
 <h1 id="types-of-attacks">Types of attacks</h1>
 
 <h2 id="oracle-manipulation">Oracle Manipulation</h2>
 <h3 id="also-known-as-price-oracle-attacks">Also known as “Price Oracle Attacks”</h3>
 
-<h2 id="reentrancy">Reentrancy</h2>
+<p>This seems to be the #1 cause of attacks at the moment, by far. What is important to note, is that decentralized exchanges are not decentralized oracles. Using Uniswap, Sushiswap, or Curve to get pricing information to execute trades is pulling data from potocols whose price depends soley on liquidity. Looking at the infamous ground zero bZx attack that sparked this wave of attacks, we can see exactly what happens. These flash loans are used to crash and manipulate the price of these decentralized exchanges, which most projects deemed safe to use. The issue here relies in the fact that these protocols prices depend entirely on liquidity.</p>
 
-<h2 id="slippage">Slippage</h2>
+<p>See the above section for what something like this would look like.</p>
 
-<h1 id="prevention">Prevention</h1>
+<h3 id="prevention">Prevention</h3>
 
-<h2 id="decentralized-oracles">Decentralized Oracles</h2>
-<h3 id="fixes-oracle-manipulation">Fixes Oracle Manipulation</h3>
+<p>The easiest way to solve this is to use <a href="https://blog.chain.link/flash-loans-and-the-importance-of-tamper-proof-oracles/">decentralized oracles</a>. <a href="https://feeds.chain.link/">Chainlink Price Feeds</a> are the leading decentralized oracle provider, and you can see that the vast majority of the protocols end up adding Chainlink to fix these attacks. If the data (price or otherwise) you’re looking for isn’t there yet, you can always request new decentralized networks or <a href="https://docs.chain.link/docs/make-a-http-get-request">build your own</a>.</p>
+
+<h3 id="prevention-example">Prevention Example</h3>
 
 <p>Let’s take a look at some malicious pseudo-code, pretend these are each ERC20s.</p>
 
@@ -164,8 +204,6 @@ myGovernanceToken.transfer(msg.sender, priceOfMyGovernanceTokenInETH)
 
 <p>This right here should be the easiest red flag on the planet. If you ever do a transfer based on a centralized price oracle, you’re asking to get owned. One way or another.</p>
 
-<h3 id="solution">Solution</h3>
-
 <p>Check the <a href="https://docs.chain.link/docs/get-the-latest-price">Chainlink documentation for decentralized price feeds</a></p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="dl">"</span><span class="s2">@chainlink/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol</span><span class="dl">"</span><span class="p">;</span>
@@ -174,13 +212,26 @@ myGovernanceToken.transfer(msg.sender, priceOfMyGovernanceTokenInETH)
 <span class="nx">myGovernanceToken</span><span class="p">.</span><span class="nx">transfer</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">priceOfMyGovernanceTokenInETH</span><span class="p">)</span>
 </code></pre></div></div>
 
-<h2 id="send-transfer-and-call">send, transfer, and call</h2>
+<h2 id="reentrancy">Reentrancy</h2>
 
-<p>Todo</p>
+<p>A reentrancy attack can occur when you create a function that makes an external call to another untrusted contract before it resolves any effects. If the attacker can control the untrusted contract, they can make a recursive call back to the original function, repeating interactions that would have otherwise not run after the effects were resolved.</p>
 
-<h3 id="solution-1">Solution</h3>
+<h3 id="prevention-1">Prevention</h3>
 
-<p>TODO</p>
+<p><code class="language-plaintext highlighter-rouge">Send, Transfer, and Call</code></p>
+
+<h3 id="prevention-example-1">Prevention Example</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function withdraw() external {
+    uint256 amount = balances[msg.sender];
+    require(msg.sender.call.value(amount)());
+    balances[msg.sender] = 0;
+}
+</code></pre></div></div>
+
+<h2 id="pump-and-arbitrage">Pump and Arbitrage</h2>
+
+<h3 id="prevention-2">Prevention</h3>
 
 <h2 id="safe-integer-use-and-basic-audits">Safe Integer use and basic audits</h2>
 
@@ -195,8 +246,9 @@ myGovernanceToken.transfer(msg.sender, priceOfMyGovernanceTokenInETH)
 
 <p>This will be a work in progress for us to get better at standards here. At the moment, I’m not sure how to address some of the liquidity issues. If you have a protocol that depends heavily on liquidity of another platform, you could very well be vulnerable.</p>
 
-<p><a href="https://twitter.com/Dogetoshi/status/1326963117356625931">Hack Tweet Thread</a>
+<p><a href="https://twitter.com/Dogetoshi/status/1326963117356625931">Akropolis Hack Tweet Thread</a>
 <a href="https://quantstamp.com/blog/market-dynamics-of-the-1st-bzx-hack-part-1">bZx First attack</a>
+<a href="https://academy.ivanontech.com/blog/defi-deep-dive-what-is-the-bzx-protocol#:~:text=bZx%20Hack%20%231&amp;text=At%20an%20afterparty%2C%20they%20noticed,Bitcoin%20(WBTC)%20from%20Compound.">bZx Both attacks</a>
 <a href="https://medium.com/coinmonks/protect-your-solidity-smart-contracts-from-reentrancy-attacks-9972c3af7c21">Reentry attacks</a>
 <a href="https://consensys.net/diligence/blog/2019/09/stop-using-soliditys-transfer-now/">Using <code class="language-plaintext highlighter-rouge">call</code> over <code class="language-plaintext highlighter-rouge">transfer</code> or <code class="language-plaintext highlighter-rouge">send</code></a></p>
 
