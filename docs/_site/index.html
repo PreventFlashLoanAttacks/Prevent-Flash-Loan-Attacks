@@ -4,34 +4,61 @@
     <meta charset="UTF-8">
 
 <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Prevent Flash Loan Attacks | PreventFlashLoanAttacks</title>
+<title>Prevent Flash Loan Attacks | Prevent-Flash-Loan-Attacks</title>
 <meta name="generator" content="Jekyll v3.9.0" />
 <meta property="og:title" content="Prevent Flash Loan Attacks" />
 <meta property="og:locale" content="en_US" />
+<meta name="description" content="We are dedicated to stopping flash loan and oracle manipulation attacks. Please consider contributing if you have additional information." />
+<meta property="og:description" content="We are dedicated to stopping flash loan and oracle manipulation attacks. Please consider contributing if you have additional information." />
 <link rel="canonical" href="http://localhost:4000/" />
 <meta property="og:url" content="http://localhost:4000/" />
-<meta property="og:site_name" content="PreventFlashLoanAttacks" />
+<meta property="og:site_name" content="Prevent-Flash-Loan-Attacks" />
 <script type="application/ld+json">
-{"headline":"Prevent Flash Loan Attacks","url":"http://localhost:4000/","name":"PreventFlashLoanAttacks","@type":"WebSite","@context":"https://schema.org"}</script>
+{"url":"http://localhost:4000/","name":"Prevent-Flash-Loan-Attacks","description":"We are dedicated to stopping flash loan and oracle manipulation attacks. Please consider contributing if you have additional information.","@type":"WebSite","headline":"Prevent Flash Loan Attacks","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
-    <link rel="stylesheet" href="/assets/css/style.css?v=689af63fc96f2fe84baf76b2b65882936ab5eac1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=2976159fc5d4747767cb8040e4474c1106e55202">
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">PreventFlashLoanAttacks</h1>
-      <h2 class="project-tagline"></h2>
+      <h1 class="project-name">Prevent-Flash-Loan-Attacks</h1>
+      <h2 class="project-tagline">We are dedicated to stopping flash loan and oracle manipulation attacks. Please consider contributing if you have additional information. </h2>
       
-        <a href="https://github.com/PatrickAlphaC/PreventFlashLoanAttacks" class="btn">View on GitHub</a>
+        <a href="https://github.com/PreventFlashLoanAttacks/Prevent-Flash-Loan-Attacks" class="btn">View on GitHub</a>
       
       
     </section>
 
     <section class="main-content">
       <h1 id="prevent-flash-loan-attacks">Prevent Flash Loan Attacks</h1>
-<h2 id="purpose">Purpose</h2>
+
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+  <li><a href="#purpose">Purpose</a></li>
+  <li><a href="#Historic-Attacks">Historic Attacks</a>
+    <ol>
+      <li><a href="#post-mortem">Post Mortems</a></li>
+      <li><a href="#malicous-wallets">Malicous Wallets</a></li>
+    </ol>
+  </li>
+  <li><a href="#types-of-attacks">Types of attacks</a>
+    <ol>
+      <li><a href="#oracle-manipulation">Oracle Manipulation</a></li>
+      <li><a href="#Reentrancy">Reentrancy</a></li>
+      <li><a href="#slippage">Slippage</a></li>
+    </ol>
+  </li>
+  <li><a href="#Prevention">Prevention</a>
+    <ol>
+      <li><a href="#decentralized-oracles">Decentralized Oracles</a></li>
+      <li><a href="#send,-transfer,-and-call">send, transfer, and call</a></li>
+    </ol>
+  </li>
+</ol>
+
+<h1 id="purpose">Purpose</h1>
 
 <p>This site is dedicated to information about flash loan attacks (which are usually just <a href="https://blog.chain.link/flash-loans-and-the-importance-of-tamper-proof-oracles/">price oracle attacks</a>) and how to stop them.</p>
 
@@ -39,7 +66,7 @@
 
 <p>The first step you can take, is to use <a href="https://docs.chain.link/docs/architecture-decentralized-model">decentralized oracles</a> when working with data, a number of the projects that had issues moved themselves to Chainlink Price Feeds and are now secure.</p>
 
-<h2 id="attacks">Attacks</h2>
+<h1 id="historic-attacks">Historic Attacks</h1>
 
 <table>
   <thead>
@@ -59,7 +86,7 @@
       <td>Feb-15-2020 01:38:57 AM +UTC</td>
       <td>$800,000</td>
       <td><a href="https://etherscan.io/tx/0x762881b07feb63c436dee38edd4ff1f7a74c33091e534af56c9f7d49b5ecac15">Etherscan</a></td>
-      <td>Oracle Attack</td>
+      <td>Oracle Attack &amp; Slippage Attack</td>
     </tr>
     <tr>
       <td>Origin Protocol</td>
@@ -83,7 +110,7 @@
       <td>Nov-14-2020 03:36:30 PM +UTC</td>
       <td>$6 M</td>
       <td><a href="https://etherscan.io/tx/0x46a03488247425f845e444b9c10b52ba3c14927c687d38287c0faddc7471150a">Etherscan</a></td>
-      <td>Oracle Attack?</td>
+      <td>Oracle Attack</td>
     </tr>
     <tr>
       <td>Akropolis</td>
@@ -91,7 +118,7 @@
       <td>Nov-12-2020 12:04:41 PM +UTC</td>
       <td>$2 M</td>
       <td><a href="https://etherscan.io/tx/0xf15623567231c67df2b8bcc5540236fbda2c3ac11ecbec427048f11b582cb869">Etherscan</a></td>
-      <td>Oracle Attack?</td>
+      <td>Re-Entrancy</td>
     </tr>
     <tr>
       <td>Cheese Bank</td>
@@ -99,20 +126,35 @@
       <td>Nov-14-2020 03:36:30 PM +UTC</td>
       <td>$6 M</td>
       <td><a href="https://etherscan.io/tx/0x46a03488247425f845e444b9c10b52ba3c14927c687d38287c0faddc7471150a">Etherscan</a></td>
-      <td>Oracle Attack?</td>
+      <td>Oracle Attack</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="malicious-wallets--users">Malicious wallets / Users</h3>
+<h2 id="post-mortems">Post Mortems</h2>
+<p>TODO</p>
+<h2 id="malicious-wallets--users">Malicious wallets / Users</h2>
+<p>(TODO)</p>
 
 <ul>
-  <li><a href="https://etherscan.io/address/0xb77f7bbac3264ae7abc8aedf2ec5f4e7ca079f83">Etherscan</a>, <a href="https://etherscan.io/address/0xf224ab004461540778a914ea397c589b677e27bb">Etherscan</a>, <a href="https://etherscan.io/address/0xa773603b139ae1c52d05b35796df3ee76d8a9a2f">Etherscan</a></li>
+  <li><a href="https://etherscan.io/address/0xb77f7bbac3264ae7abc8aedf2ec5f4e7ca079f83">Etherscan</a></li>
+  <li><a href="https://etherscan.io/address/0xf224ab004461540778a914ea397c589b677e27bb">Etherscan</a></li>
+  <li><a href="https://etherscan.io/address/0xa773603b139ae1c52d05b35796df3ee76d8a9a2f">Etherscan</a></li>
 </ul>
+
+<h1 id="types-of-attacks">Types of attacks</h1>
+
+<h2 id="oracle-manipulation">Oracle Manipulation</h2>
+<h3 id="also-known-as-price-oracle-attacks">Also known as “Price Oracle Attacks”</h3>
+
+<h2 id="reentrancy">Reentrancy</h2>
+
+<h2 id="slippage">Slippage</h2>
 
 <h1 id="prevention">Prevention</h1>
 
-<h3 id="issue">Issue</h3>
+<h2 id="decentralized-oracles">Decentralized Oracles</h2>
+<h3 id="fixes-oracle-manipulation">Fixes Oracle Manipulation</h3>
 
 <p>Let’s take a look at some malicious pseudo-code, pretend these are each ERC20s.</p>
 
@@ -132,28 +174,37 @@ myGovernanceToken.transfer(msg.sender, priceOfMyGovernanceTokenInETH)
 <span class="nx">myGovernanceToken</span><span class="p">.</span><span class="nx">transfer</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">sender</span><span class="p">,</span> <span class="nx">priceOfMyGovernanceTokenInETH</span><span class="p">)</span>
 </code></pre></div></div>
 
-<h3 id="issue-1">Issue</h3>
+<h2 id="send-transfer-and-call">send, transfer, and call</h2>
 
-<p>Not using safemath.</p>
+<p>Todo</p>
 
 <h3 id="solution-1">Solution</h3>
 
-<p>Simple, add this to your code.</p>
+<p>TODO</p>
+
+<h2 id="safe-integer-use-and-basic-audits">Safe Integer use and basic audits</h2>
+
+<p>Everything that applies to basic contract safety applies to flash loan attack safety. Such as:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>using SafeMath for uint256;
 </code></pre></div></div>
+
+<p>Watch out for integer overflows, etc.</p>
 
 <h1 id="more-details-notes-threads">More details, notes threads</h1>
 
 <p>This will be a work in progress for us to get better at standards here. At the moment, I’m not sure how to address some of the liquidity issues. If you have a protocol that depends heavily on liquidity of another platform, you could very well be vulnerable.</p>
 
-<p><a href="https://twitter.com/Dogetoshi/status/1326963117356625931">Hack Tweet Thread</a></p>
+<p><a href="https://twitter.com/Dogetoshi/status/1326963117356625931">Hack Tweet Thread</a>
+<a href="https://quantstamp.com/blog/market-dynamics-of-the-1st-bzx-hack-part-1">bZx First attack</a>
+<a href="https://medium.com/coinmonks/protect-your-solidity-smart-contracts-from-reentrancy-attacks-9972c3af7c21">Reentry attacks</a>
+<a href="https://consensys.net/diligence/blog/2019/09/stop-using-soliditys-transfer-now/">Using <code class="language-plaintext highlighter-rouge">call</code> over <code class="language-plaintext highlighter-rouge">transfer</code> or <code class="language-plaintext highlighter-rouge">send</code></a></p>
 
 
 
       <footer class="site-footer">
         
-          <span class="site-footer-owner"><a href="https://github.com/PatrickAlphaC/PreventFlashLoanAttacks">PreventFlashLoanAttacks</a> is maintained by <a href="https://github.com/PatrickAlphaC">PatrickAlphaC</a>.</span>
+          <span class="site-footer-owner"><a href="https://github.com/PreventFlashLoanAttacks/Prevent-Flash-Loan-Attacks">Prevent-Flash-Loan-Attacks</a> is maintained by <a href="https://github.com/PreventFlashLoanAttacks">PreventFlashLoanAttacks</a>.</span>
         
         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
       </footer>
