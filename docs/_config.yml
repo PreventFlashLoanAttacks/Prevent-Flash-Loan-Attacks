@@ -1,4 +1,2 @@
-theme: jekyll-theme-cayman
+theme: jekyll-theme-hacker
 title: [Prevent Flash Loan Attacks]
-plugins:
-    -jekyll-seo-tag
