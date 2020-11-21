@@ -1,10 +1,9 @@
 import { createGlobalStyle } from 'styled-components'
 import { reboot } from 'styled-reboot'
-import './fonts.css'
 
 const GlobalStyle = createGlobalStyle`
 
-  ${reboot}
+  ${reboot};
 
   html,
   body,
@@ -60,7 +59,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: ${props => props.theme.fontSizes[2]}px;
   }
 
-  h6, .h6 {
+  h6 {
     font-size: ${props => props.theme.fontSizes[1]}px;
   }
 

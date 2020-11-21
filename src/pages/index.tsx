@@ -66,6 +66,7 @@ const TableOfContentNav = styled.nav(
   padding: 20px;
   min-height: 70%;
   border-radius: ${props.theme.radii.base};
+  width: 90%;
 `
 )
 
