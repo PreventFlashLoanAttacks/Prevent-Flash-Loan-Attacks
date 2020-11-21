@@ -1,0 +1,10 @@
+# What is A Flash Loan?
+
+A flash loan is a loan that is only valid within one blockchain transaction. Flash loans fail, if the borrower does not repay its debt before the end of the transaction borrowing the loan. That is, because a blockchain transaction can be reverted during its execution, if the condition of a repayment is not satisfied.
+
+We can then see some easy attack vectors using this tool.
+
+1. Take out a massive loan (token A) from a protocol supporting flash loans
+2. Swap token A for token B on a DEX, dumping the price of A
+3. Deposit the purchased token B as collateral on a DeFi protocol that uses the above DEX as its sole price feed, and borrow even more with this manipulated price
+4. Use a portion of borrowed token A to fully pay back the original flash loan and keep the remaining tokens, (profiting here)

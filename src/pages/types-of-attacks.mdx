@@ -1,0 +1,63 @@
+# Types of attacks
+
+## Oracle Manipulation
+
+Also known as Price Oracle Attacks. This seems to be the #1 cause of attacks at the moment, by far. What is important to note, is that decentralized exchanges are not decentralized oracles. Using Uniswap, Sushiswap, or Curve to get pricing information to execute trades is pulling data from potocols whose price depends soley on liquidity. Looking at the infamous ground zero bZx attack that sparked this wave of attacks, we can see exactly what happens. These flash loans are used to crash and manipulate the price of these decentralized exchanges, which most projects deemed safe to use. The issue here relies in the fact that these protocols prices depend entirely on liquidity.
+
+See the above section for what something like this would look like.
+
+### Prevention
+
+The easiest way to solve this is to use [decentralized oracles](https://blog.chain.link/flash-loans-and-the-importance-of-tamper-proof-oracles/). [Chainlink Price Feeds](https://feeds.chain.link/) are the leading decentralized oracle provider, and you can see that the vast majority of the protocols end up adding Chainlink to fix these attacks. If the data (price or otherwise) you're looking for isn't there yet, you can always request new decentralized networks or [build your own](https://docs.chain.link/docs/make-a-http-get-request).
+
+### Prevention Example
+
+Let's take a look at some malicious pseudo-code, pretend these are each ERC20s.
+
+```javascript
+uint256 priceOfMyGovernanceTokenInETH = dexTokenETHPairPrice;
+myGovernanceToken.transfer(msg.sender, priceOfMyGovernanceTokenInETH)
+```
+
+This right here should be the easiest red flag on the planet. If you ever do a transfer based on a centralized price oracle, you're asking to get owned. One way or another.
+
+Check the [Chainlink documentation for decentralized price feeds](https://docs.chain.link/docs/get-the-latest-price)
+
+```javascript
+import "@chainlink/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol";
+// constructor and getLatestPrice function truncated
+uint256 priceOfMyGovernanceTokenInETH = getLatestChainlinkPrice();
+myGovernanceToken.transfer(msg.sender, priceOfMyGovernanceTokenInETH)
+```
+
+## Reentrancy
+
+A reentrancy attack can occur when you create a function that makes an external call to another untrusted contract before it resolves any effects. If the attacker can control the untrusted contract, they can make a recursive call back to the original function, repeating interactions that would have otherwise not run after the effects were resolved.
+
+### Prevention
+
+`Send, Transfer, and Call`
+
+### Prevention Example
+
+```javascript
+function withdraw() external {
+    uint256 amount = balances[msg.sender];
+    require(msg.sender.call.value(amount)());
+    balances[msg.sender] = 0;
+}
+```
+
+## Pump and Arbitrage
+
+### Prevention
+
+## Safe Integer use and basic audits
+
+Everything that applies to basic contract safety applies to flash loan attack safety. Such as:
+
+```
+using SafeMath for uint256;
+```
+
+Watch out for integer overflows, etc.
