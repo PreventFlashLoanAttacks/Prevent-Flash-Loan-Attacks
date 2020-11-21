@@ -3,8 +3,10 @@ import React from 'react'
 
 import Container from '../components/Container'
 import Aside from '../components/Aside'
-import Layout from '../layouts/Center'
+import Center from '../layouts/Center'
 import SEO from '../components/seo'
+
+import Logo from '../assets/svg/pfla-logo.svg'
 
 // Pages
 import Abstract from './abstract.mdx'
@@ -80,6 +82,7 @@ const IndexPage = () => {
 
   return (
     <>
+      <SEO title="Home" />
       <Aside>
         <TableOfContent>
           <TableOfContentNav>
@@ -91,9 +94,11 @@ const IndexPage = () => {
           </TableOfContentNav>
         </TableOfContent>
       </Aside>
-      <SEO title="Home" />
-      <Container>
+      <Center>
+        <Logo />
         <h1>Prevent Flash Loan Attacks</h1>
+      </Center>
+      <Container>
         <Section id="s0">
           <Abstract />
         </Section>

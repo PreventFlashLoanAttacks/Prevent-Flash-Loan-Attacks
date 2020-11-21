@@ -20,7 +20,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        icon: `src/images/kryptobase-icon.png`,
+        icon: `src/images/pfla-icon.png`,
       },
     },
     {
