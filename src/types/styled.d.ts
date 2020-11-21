@@ -8,7 +8,7 @@ import {
   ThemeHeader,
   ThemeRadii,
   ThemeFonts,
-} from './Theme'
+} from '../styles/Theme'
 
 declare module 'styled-components' {
   export interface DefaultTheme extends RebootTheme {
