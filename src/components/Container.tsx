@@ -8,7 +8,6 @@ const Container = styled.div<ContainerProps>(
   props =>
     `
   width: 100%;
-
   padding-left: 20px;
   padding-right: 20px;
   margin: auto;

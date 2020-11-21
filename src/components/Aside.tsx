@@ -9,8 +9,8 @@ const Content = styled.div`
 `
 
 const Wrapper = styled.aside`
-  z-index: 1000;
   position: fixed;
+  z-index: 1000;
   height: 100%;
   width: 100px;
 
