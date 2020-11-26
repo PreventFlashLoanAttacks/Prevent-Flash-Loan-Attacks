@@ -5,6 +5,7 @@ module.exports = {
     keywords: `cryptocurrency, ethereum, ethereum defi, ethereum flash loans, decentralized finance flash loans, defi hacks, defi flash loans, flash loans cryptocurrency, blockchain hacks, prevent flash loans, chainlink, oracle hacks`,
     author: `PreventFlashLoanAttacks`,
   },
+  pathPrefix: "/Prevent-Flash-Loan-Attacks",
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-sharp`,
