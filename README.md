@@ -6,15 +6,40 @@ This is a website dedicated to preventing flash loan attacks by sharing informat
 
 It is our mission to add as much information to get stronger and more well equipt as a community to prevent these flash loans from affecting other users.
 
-## SMART CONTRACT ENGINEERS DON'T LET OTHER SMART CONTRACT ENGINEERS GET FLASH LOAN ATTACKED
+# Build
 
-# Local testing
+We're using [Gatsby](https://gatsbyjs.com) to deploy the live site. To run the site locally, first clone this repositroy. Make sure to clone the `main` branch.
 
-- You'll need [ruby, jekyll, and bundle installed](https://help.github.jp/enterprise/2.11/user/articles/setting-up-your-github-pages-site-locally-with-jekyll/)
-- Then run `bundle install` in the `docs` directory
-- Then run `bundle exec jekyll serve` and it will give you the URL of the site
+```
+$ git clone https://github.com/PreventFlashLoanAttacks/Prevent-Flash-Loan-Attacks.git
+$ cd Prevent-Flash-Loan-Attacks
+```
 
-## Contributing
-As this is an open source project, we'd love and need your help! Cayman is an open source project, built one contribution at a time by users like you. See the CONTRIBUTING file for instructions on how to contribute.
+Install dependencies via a package manager, we are using [Yarn](https://yarnpkg.com). Run the following in the repository
 
-Please add pieces here so we can continue to make the community stronger!
+```
+$ yarn install
+```
+
+Then to run a development instance, run
+
+```
+$ yarn develop
+```
+
+## Scripts
+
+`package.json` has the following commands, you can run them using `yarn <command>`
+
+| Command   | Description                                                                                                      |
+| --------- | ---------------------------------------------------------------------------------------------------------------- |
+| `build`   | Create a production build                                                                                        |
+| `develop` | Start a development server. Your changes will be live.                                                           |
+| `format`  | Formats all files in `src` according to [Prettier](https://prettier.io/) rules. See [`.prettierrc`](.prettierrc) |
+| `start`   | Same as `develop`                                                                                                |
+| `serve`   | Start an HTTP server to serve the production build                                                               |
+| `clean`   | Cleans cache                                                                                                     |
+
+# Contributing
+
+See [CONTRIBUTING](CONTRIBUTING.md)
