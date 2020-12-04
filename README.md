@@ -43,4 +43,3 @@ $ yarn develop
 # Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md)
-
