@@ -11,6 +11,7 @@ import Logo from '../assets/svg/pfla-logo.svg'
 // Pages
 import Abstract from './abstract.mdx'
 import HistoricAttacks from './historic-attacks.mdx'
+import ProjectPostMortems from './project-post-mortems.mdx'
 import WhatIsFlashLoan from './what-is-flash-loan.mdx'
 import TypesOfAttacks from './types-of-attacks.mdx'
 import MoreDetails from './more-details.mdx'
@@ -29,6 +30,14 @@ const pages: PageModule[] = [
   {
     title: 'Historic Attacks',
     content: './historic-attacks.mdx',
+  },
+  {
+    title: 'Project Post Mortems',
+    content: './project-post-mortems.mdx',
+  },
+  {
+    title: 'Project Post Mortems',
+    content: './project-post-mortems.mdx',
   },
   {
     title: 'What is Flash Loan?',
@@ -107,12 +116,15 @@ const IndexPage = () => {
           <HistoricAttacks />
         </Section>
         <Section id="s2">
-          <WhatIsFlashLoan />
+          <ProjectPostMortems />
         </Section>
         <Section id="s3">
-          <TypesOfAttacks />
+          <WhatIsFlashLoan />
         </Section>
         <Section id="s4">
+          <TypesOfAttacks />
+        </Section>
+        <Section id="s5">
           <MoreDetails />
         </Section>
       </Container>

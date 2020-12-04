@@ -2,7 +2,7 @@
 
 ## Oracle Manipulation
 
-Also known as Price Oracle Attacks. This seems to be the #1 cause of attacks at the moment, by far. What is important to note, is that decentralized exchanges are not decentralized oracles. Using Uniswap, Sushiswap, or Curve to get pricing information to execute trades is pulling data from potocols whose price depends soley on liquidity. Looking at the infamous ground zero bZx attack that sparked this wave of attacks, we can see exactly what happens. These flash loans are used to crash and manipulate the price of these decentralized exchanges, which most projects deemed safe to use. The issue here relies in the fact that these protocols prices depend entirely on liquidity.
+This seems to be the #1 cause of attacks at the moment, by far. What is important to note, is that decentralized exchanges are not decentralized oracles. Using Uniswap, Sushiswap, or Curve to get pricing information to execute trades is pulling data from potocols whose price depends soley on liquidity. Looking at the infamous ground zero bZx attack that sparked this wave of attacks, we can see exactly what happens. These flash loans are used to crash and manipulate the price of these decentralized exchanges, which most projects deemed safe to use. The issue here relies in the fact that these protocols prices depend entirely on liquidity.
 
 See the above section for what something like this would look like.
 
@@ -36,15 +36,27 @@ A reentrancy attack can occur when you create a function that makes an external 
 
 ### Prevention
 
-`Send, Transfer, and Call`
+Leave external transactions to the last parameter. These are the harder ones to prevent, but below is a simple example of what should be done.
 
 ### Prevention Example
+
+This code:
 
 ```javascript
 function withdraw() external {
     uint256 amount = balances[msg.sender];
-    require(msg.sender.call.value(amount)());
+    require(token.transfer(msg.sender, amount)());
     balances[msg.sender] = 0;
+}
+```
+
+Should be changed so that the external token transfer call happens **after** the balance is updated to 0.
+
+```javascript
+function withdraw() external {
+    uint256 amount = balances[msg.sender];
+    balances[msg.sender] = 0;
+    require(token.transfer(msg.sender, amount)());
 }
 ```
 
