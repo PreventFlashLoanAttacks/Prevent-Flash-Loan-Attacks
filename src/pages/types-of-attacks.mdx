@@ -38,6 +38,10 @@ A reentrancy attack can occur when you create a function that makes an external 
 
 Leave external transactions to the last parameter. These are the harder ones to prevent, but below is a simple example of what should be done.
 
+Whenever possible, use the built-in `transfer()` function. It only sends `2300` gas with the external call, making reentrancy almost impossible. Since that will give you just enough gas to write to a log.
+
+You could alternativly add a mutex, or a variable that puts a lock on calling the function or working with the variables until the work with them is done. You don't need to do all of these tips, but you do need to do at least one of these tips.
+
 ### Prevention Example
 
 This code:
@@ -60,16 +64,49 @@ function withdraw() external {
 }
 ```
 
-## Pump and Arbitrage
+Additionally, you could do something like:
+
+```javascript
+bool public mutex = false;
+
+function withdraw() external {
+    require(!mutex);
+    mutex = true;
+    uint256 amount = balances[msg.sender];
+    balances[msg.sender] = 0;
+    require(token.transfer(msg.sender, amount)());
+    mutex = false;
+}
+```
+
+[The DAO attack](<https://en.wikipedia.org/wiki/The_DAO_(organization)>) is an example of the reentrancy attack as well, and is also considered the mother of not just defi, but decentralized attacks in general on the ETH chain.
+
+## Race Conditions / Front Running
+
+Since everything on-chain is public information, an attacker can watch transactions on-chain and look for those that would be detrimentalto the atacker, and make a transaciton with a higher gas price to occur before that transaction goes through. For example, they notice a whale is about to dump a token that the attacker holds, so the attacker pays extra gas to dump theirs first. This is known as "front running" in traditional finance, you could also think of it as a race condition because there can be scenarios where it's more complicated than this exmaple, but still boiled down to this.
+Reentrancy technical falls under this category.
 
 ### Prevention
 
-## Safe Integer use and basic audits
+The best way to prevent against these is with a [commit-reveal scheme](https://en.wikipedia.org/wiki/Commitment_scheme). This is when a project sends a transaction that goes through and is accepted, but is hashed or encrypted. Only after the transaction has concluded that they send a "reveal" phrase that decodes the transaction. This method prevents both miners and users from frontrunning transactions as they cannot determine the contents of the transaction. Transactional value however, cannot be commit-revealed, making this far less effective in the defi world. This is another very difficult type of attack to prevent.
 
-Everything that applies to basic contract safety applies to flash loan attack safety. Such as:
+[Bancor had run into this issue](https://hackernoon.com/front-running-bancor-in-150-lines-of-python-with-ethereum-api-d5e2bfd0d798) but fixed it before it was exploited.
 
-```
-using SafeMath for uint256;
-```
+#TODO looking for projects that use commit-reveal.
 
-Watch out for integer overflows, etc.
+## Pump and Arbitrage
+
+Pump and arbitrage attacks are difficult to find, some even saying they are less "attacks" and more "the system working as intended". Liquidity is an important part of any and all processes, so when a whale spikes or crashes a price, does that really reflect the true value of that crash/spike? It's hard to say.
+
+### Prevention
+
+Prevention at the moment hangs around preventing _anyone_ from being able to cause these spikes. Sometimes, coordinated attacks from social groups can be enough to pump and dump a price of an asset.
+
+### Additional Important Notes
+
+It's important to note that their are a LOT more vulnerabilities than what we are covering here. These are just the major issues we've seen in defi. This blog does a great job of outlining many of these attacks, and showing how to prevent them. [Various Known Attacks](https://blog.sigmaprime.io/solidity-security.html#reentrancy)
+
+Anther great resource that goes over [additional attacks](https://solidity-by-example.org/0.6/).
+[Additional security considerations.](https://docs.soliditylang.org/en/v0.7.4/security-considerations.html)
+
+It's unclear if auditors should be catching these, or if developers and orgainizations are taking shortcuts, or if people are just "apeing" into projects before thinking. We are all leanring
